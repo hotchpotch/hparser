@@ -18,6 +18,8 @@ class QuoteTest < Test::Unit::TestCase
   def assert_pair(from,to,klass)
     assert_equal [P.new([Text.new("#{from}aaa#{to}")])], parse("#{from}aaa#{to}")
     assert_equal [klass.new([Text.new("aaa")])], parse("#{from}\naaa\n#{to}")
+    assert_equal [klass.new([Text.new("aaa")])], parse("#{from}\r\naaa\r\n#{to}")
+    assert_equal [klass.new([Text.new("aaa")])], parse("#{from}\raaa\r#{to}")
     assert_equal [klass.new([Text.new("aaa\n\nbbb")])],parse(<<-"END")
 #{from}
 aaa
@@ -25,6 +27,7 @@ aaa
 bbb
 #{to}
     END
+
   end
 
   def test_quote
