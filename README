@@ -1,0 +1,17 @@
+=Hatena Format Parser
+==OverReview
++hparser+ is hatena format parser. This format is used at hatena diary(http://d.hatena.ne.jp/)
+If you want to know more detail about hatena format, please see http://hatenadiary.g.hatena.ne.jp/keyword/%e3%81%af%e3%81%a6%e3%81%aa%e8%a8%98%e6%b3%95%e4%b8%80%e8%a6%a7
+
++hpaser+ is constructed with some little parser.(e.g. header parser,list parser,and ...)
+So,+hparser+ can be added new format,or removed unused format.
+
+==Basic usage
+To parse hatena format,please use Hatena::Parser.
+
+ require 'hatena/parser'
+ require 'hatena/block/all'
+ require 'hatena/inline/all'
+ 
+ parser = Hatena::Parser.new
+ puts parser.parse(some_text)
