@@ -17,7 +17,7 @@ DESCRIPTION       = ""
 RUBYFORGE_PROJECT = "hparser"
 HOMEPATH          = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 BIN_FILES         = %w(  )
-VERS              = "0.3.0"
+VERS              = "0.3.1"
 
 REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
 CLEAN.include ['**/.*.sw?', '*.gem', '.config']
@@ -132,6 +132,7 @@ end
 
 desc 'Show information about the gem.'
 task :debug_gem do
+  require 'date'
   puts spec.to_ruby
 end
 
