@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'test_helper'
 require 'hparser/block/all'
 require 'hparser/inline/all'
 require 'hparser/html'

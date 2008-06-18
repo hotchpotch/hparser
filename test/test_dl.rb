@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'test_helper'
 require 'hparser/parser'
 require 'hparser/block/dl'
 

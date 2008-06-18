@@ -1,4 +1,4 @@
-require 'test/unit'
+require 'test_helper'
 require 'hparser/inline/url'
 require 'hparser/inline/text'
 require 'hparser/inline/hatena_id'
