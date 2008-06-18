@@ -14,6 +14,11 @@ class HtmlTest < Test::Unit::TestCase
     assert_equal expect,node.to_html
   end
 
+  def test_blank
+    parser = HParser::Parser.new
+    assert_equal parser.parse(''), []
+  end
+
   def test_head
     assert_html '<h1>foo</h1>',Head.new(1,[Text.new('foo')])
   end

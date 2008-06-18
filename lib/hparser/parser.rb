@@ -42,7 +42,7 @@ module HParser
     #
     # Return array of block element.
     def parse str
-      res = @blocks.parse(LineScanner.new(str.split(/\r\n|\r|\n/)),@inlines).map{|x|
+      res = (@blocks.parse(LineScanner.new(str.split(/\r\n|\r|\n/)),@inlines) || []).map{|x|
         x[0]
       }
     end
