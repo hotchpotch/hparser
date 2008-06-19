@@ -19,7 +19,8 @@ class UrlTest < Test::Unit::TestCase
   def test_text
     assert_equal [Text.new("<em>"),Url.new("http://example.com"),Text.new("</em>")],
                  parse("<em>http://example.com</em>")
-
+    assert_equal [Text.new("<em>"),Url.new("http://example.com/?foo=bar&bar=baz"),Text.new("</em>")],
+                 parse("<em>http://example.com/?foo=bar&bar=baz</em>")
     assert_equal [Url.new("http://foo.com"),Text.new(" is dummy")],
                  parse("http://foo.com is dummy")
   end
