@@ -26,15 +26,26 @@ aaa
   end
 
   def test_multi_line
-    assert_equal [p('aaa'),p('bbb')], parse(<<-END)
+    assert_equal [p("aaa\nbbb")], parse(<<-END)
 aaa
 bbb
     END
 
-    assert_equal [p("aaa"),p('bbb')], parse(<<-END)
+    assert_equal [p("aaa\nbbb"), Empty.new, p("aaa\nbbb")], parse(<<-END)
+aaa
+bbb
+
+
+aaa
+bbb
+    END
+
+    assert_equal [p("aaa"),Empty.new, p('bbb')], parse(<<-END)
 aaa
 
+
 bbb
+
     END
   end
 

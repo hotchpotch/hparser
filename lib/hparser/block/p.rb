@@ -38,7 +38,11 @@ module HParser
       attr_reader :content
       def self.parse(scanner,inlines)
         if scanner.scan(/./) then
-          P.new inlines.parse(scanner.matched)
+          matched = scanner.matched
+          if scanner.scan(/\S/) then
+            matched << "\n" + scanner.matched
+          end
+          P.new inlines.parse(matched)
         end
       end
       
