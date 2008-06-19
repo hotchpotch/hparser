@@ -18,4 +18,9 @@ class InlineTest < Test::Unit::TestCase
     assert_equal [Text.new("foo is bar")],parse("foo is bar")
     assert_equal [Text.new("foo\nbar")],parse("foo\nbar")
   end
+
+  def test_id
+    assert_equal [Text.new("id:_ql")],parse("id:_ql")
+    assert_equal [HatenaId.new("secondlife")],parse("id:secondlife")
+  end
 end

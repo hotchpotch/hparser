@@ -17,7 +17,7 @@ module HParser
       end
       
       def self.parse(scanner)
-        if scanner.scan(/id:\w+/) then
+        if scanner.scan(/id:[A-Za-z][a-zA-Z0-9_\-]{2,31}/) then
           HatenaId.new scanner.matched[3..-1]
         end
       end
