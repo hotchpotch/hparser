@@ -28,6 +28,13 @@ bbb
 #{to}
     END
 
+    assert_equal [klass.new([Text.new("aaa\n\nbbb")])],parse(<<-"END"), 'pair after space'
+#{from} 
+aaa
+
+bbb
+#{to} 
+    END
   end
 
   def test_quote

@@ -26,9 +26,9 @@ module HParser
       def self.get(scanner,from,to)
         from_q = Regexp.quote from
         to_q = Regexp.quote to
-        if scanner.scan(/^#{from_q}$/)
+        if scanner.scan(/^#{from_q}\s*?$/)
           content = ''
-          until scanner.scan(/^#{to_q}$/) do
+          until scanner.scan(/^#{to_q}\s*?$/) do
             content += "\n"+ scanner.scan(/.*/)
           end
           return content.strip

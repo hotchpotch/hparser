@@ -66,6 +66,11 @@ END
 a
 ||<
 END
+    assert_equal [SuperPre.new('a')],parse(<<-END), 'with space'
+>|| 
+a
+||< 
+END
 
   end
 
