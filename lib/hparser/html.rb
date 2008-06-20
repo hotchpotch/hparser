@@ -153,6 +153,12 @@ module HParser
       end
       alias_method :html_content,:content
     end
+
+    class Comment
+      def to_html
+        ""
+      end
+    end
   end
 
   module Inline
