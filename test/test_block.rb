@@ -83,6 +83,15 @@ END
     END
   end
 
+
+  def test_comment
+    assert_equal [Comment.new("aaa")], parse(<<-END.unindent)
+    ><!--
+    aaa
+    --><
+    END
+  end
+
   def li str
     Li.new([Text.new(str)])
   end
