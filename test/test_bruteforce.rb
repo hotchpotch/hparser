@@ -25,9 +25,23 @@ class BlockTest < Test::Unit::TestCase
           r.update(Regexp.last_match[1] => i.strip)
         }
         next unless rest["text"]
+
+        parsed = nil
         assert_nothing_raised("#{test.basename}::#{name}\n\n#{rest["text"]}\n") {
-          @parser.parse rest["text"]
+          parsed = @parser.parse(rest["text"])
         }
+
+        html = nil
+        assert_nothing_raised("to_html") {
+          html = @parser.parse(rest["text"]).map {|i| i.to_html }.join.strip
+        }
+
+        # paranoid test
+        if ENV["TEST_PARANOID"]
+          require "rubygems"
+          require "hpricot"
+          assert_equal Hpricot(rest["html"].strip).to_s, Hpricot(html).to_s
+        end
       end
     end
   end
