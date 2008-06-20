@@ -154,6 +154,11 @@ module HParser
       alias_method :html_content,:content
     end
 
+    class RAW
+      def to_html
+        @content.map {|i| i.to_html }.join
+      end
+    end
   end
 
   module Inline
