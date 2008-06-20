@@ -28,6 +28,12 @@ class HeadTest < Test::Unit::TestCase
     assert_equal [head(100,"aaa")],parse("#{'*'*100}aaa")
   end
 
+  def test_empty_head
+    assert_equal [head(1, "")],parse("*")
+    assert_equal [head(1, "")],parse("* ")
+    assert_equal [head(1, "")],parse("*  ")
+  end
+
   def head level,str
     Head.new level,[Text.new(str)]
   end
