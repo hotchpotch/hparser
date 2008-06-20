@@ -85,10 +85,18 @@ END
 
 
   def test_comment
-    assert_equal [Comment.new("aaa")], parse(<<-END.unindent)
+    assert_equal [HParser::Block::RAW.new([ Comment.new("\naaa\n") ])], parse(<<-END.unindent)
     ><!--
     aaa
     --><
+    END
+  end
+
+  def test_raw
+    assert_equal [RAW.new([ Text.new("<ins>") ]), P.new([ Text.new("foo") ]), RAW.new([ Text.new("</ins>") ])], parse(<<-END.unindent)
+    ><ins><
+    foo
+    ></ins><
     END
   end
 

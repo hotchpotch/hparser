@@ -154,11 +154,6 @@ module HParser
       alias_method :html_content,:content
     end
 
-    class Comment
-      def to_html
-        ""
-      end
-    end
   end
 
   module Inline
@@ -177,6 +172,12 @@ module HParser
     class HatenaId
       def to_html
         %(<a href="http://d.hatena.ne.jp/#{self.name}/">id:#{self.name}</a>)
+      end
+    end
+
+    class Comment
+      def to_html
+        ""
       end
     end
   end
