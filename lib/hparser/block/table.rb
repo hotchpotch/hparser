@@ -12,7 +12,7 @@ module HParser
       def self.parse(scanner,inlines)
         rows = []
         while scanner.scan(/\A\|/)
-          rows.push scanner.matched[1..-1].split('|').map{|label|
+          rows.push scanner.matched[1..-1].split('|').select{|l| l[0]}.map{|label|
             if label[0].chr == '*' then
               Th.new inlines.parse(label[1..-1].strip)
             else
