@@ -20,7 +20,13 @@ class HtmlTest < Test::Unit::TestCase
   end
 
   def test_head
+    assert_equal Head.head_level, 1
     assert_html '<h1>foo</h1>',Head.new(1,[Text.new('foo')])
+    Head.head_level = 2
+    assert_html '<h2>foo</h2>',Head.new(1,[Text.new('foo')])
+    Head.head_level = 4
+    assert_html '<h4>foo</h4>',Head.new(1,[Text.new('foo')])
+    Head.head_level = 1
   end
 
   def test_p

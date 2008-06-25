@@ -45,7 +45,15 @@ module HParser
       include Html
       private
       def html_tag
-        "h#{self.level}"
+        "h#{@@head_level + self.level - 1}"
+      end
+
+      @@head_level = 1
+      def self.head_level=(l)
+        @@head_level = l
+      end
+      def self.head_level
+        @@head_level
       end
 
       alias_method :html_content,:content
