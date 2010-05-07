@@ -161,6 +161,12 @@ module HParser
       end
       alias_method :html_content,:content
     end
+
+    class RAW
+      def to_html
+        @content.map {|i| i.to_html }.join
+      end
+    end
   end
 
   module Inline
@@ -179,6 +185,12 @@ module HParser
     class HatenaId
       def to_html
         %(<a href="http://d.hatena.ne.jp/#{self.name}/">id:#{self.name}</a>)
+      end
+    end
+
+    class Comment
+      def to_html
+        ""
       end
     end
   end

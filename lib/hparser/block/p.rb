@@ -39,9 +39,6 @@ module HParser
       def self.parse(scanner,inlines)
         if scanner.scan(/./) then
           matched = scanner.matched
-          if scanner.scan(/\S/) then
-            matched << "\n" + scanner.matched
-          end
           P.new inlines.parse(matched)
         end
       end

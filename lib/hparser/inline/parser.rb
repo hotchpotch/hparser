@@ -15,7 +15,8 @@ module HParser
 
       def parse str
         scanner = StringScanner.new str
-        join_text @document.parse(scanner)
+        e = @document.parse(scanner) || [ HParser::Inline::Text.new("") ]
+        join_text e
       end
 
       def self.default_parser
