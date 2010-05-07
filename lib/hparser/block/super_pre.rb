@@ -7,10 +7,26 @@ module HParser
       include Collectable
 
       def self.parse scanner,inlines
-        content = get scanner,'>||','||<'
-        if content then
-          SuperPre.new content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
+
+        content = format = nil
+        if scanner.scan(/^>\|([A-Za-z0-9]*)\|\s*?$/)
+          content = ''
+          format = $1
+          until scanner.scan(/^\|\|<\s*?$/) do
+            content += "\n"+ scanner.scan(/.*/)
+          end
+          content.strip!
         end
+
+        if content then
+          SuperPre.new content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;"), format
+        end
+      end
+
+      attr_reader :format
+      def initialize(content, format = nil)
+        super content
+        @format = format
       end
 
       def self.<=>(o)

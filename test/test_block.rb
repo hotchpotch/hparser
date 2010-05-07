@@ -83,6 +83,14 @@ END
 
   end
 
+  def test_spre_format
+    assert_equal [SuperPre.new('&lt;foo /&gt;')],parse(<<-END)
+>|xml|
+<foo />
+||<
+END
+  end
+
   def test_list
     assert_equal [Ul.new(li('a'),Ol.new(li('b')),Ul.new(li('c')))],
                   parse(<<-END)
