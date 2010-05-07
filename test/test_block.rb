@@ -74,6 +74,15 @@ END
 
   end
 
+  def test_spre_html
+    assert_equal [SuperPre.new('&lt;foo /&gt;')],parse(<<-END)
+>||
+<foo />
+||<
+END
+
+  end
+
   def test_list
     assert_equal [Ul.new(li('a'),Ol.new(li('b')),Ul.new(li('c')))],
                   parse(<<-END)

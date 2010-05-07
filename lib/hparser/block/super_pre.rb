@@ -9,7 +9,7 @@ module HParser
       def self.parse scanner,inlines
         content = get scanner,'>||','||<'
         if content then
-          SuperPre.new content
+          SuperPre.new content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
         end
       end
 
