@@ -13,7 +13,9 @@ module HParser
           content = ''
           format = $1
           until scanner.scan(/^\|\|<\s*?$/) do
-            content += "\n"+ scanner.scan(/.*/)
+            str = scanner.scan(/.*/)
+            break if !str
+            content += "\n"+ str
           end
           content.strip!
         end
