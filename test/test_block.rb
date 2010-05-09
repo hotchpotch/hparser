@@ -117,6 +117,20 @@ END
     END
   end
 
+  def test_p
+    assert_equal [P.new([ Text.new(" foo") ])], parse(<<END)
+ foo
+END
+
+    str = <<END
+ foo
+ bar
+ buz
+END
+    assert_equal [P.new([ Text.new(" foo")]), P.new([Text.new(" bar") ]), P.new([Text.new(" buz") ])], parse(str)
+  end
+
+
   def li str
     Li.new([Text.new(str)])
   end

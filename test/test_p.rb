@@ -49,6 +49,14 @@ bbb
     END
   end
 
+  def test_multi_line2
+    assert_equal [p(" aaa"), p(" bbb"), p(" ccc")], parse(<<-END)
+ aaa
+ bbb
+ ccc
+    END
+  end
+
   def test_empty
     assert_equal [p("aaa"),Empty.new,p('bbb')],
                   parse(<<-END)
