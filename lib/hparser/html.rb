@@ -80,7 +80,10 @@ module HParser
 
     class SuperPre
       include Html
-      private
+      def to_html
+        content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
+        %(<#{html_tag}>#{content}</#{html_tag}>)
+      end
       def html_tag() 'pre' end
       alias_method :html_content,:content
     end

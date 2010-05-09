@@ -21,7 +21,7 @@ module HParser
         end
 
         if content then
-          SuperPre.new content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;"), format
+          SuperPre.new content, format
         end
       end
 

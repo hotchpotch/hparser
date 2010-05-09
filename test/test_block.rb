@@ -75,7 +75,7 @@ END
   end
 
   def test_spre_html
-    assert_equal [SuperPre.new('&lt;foo /&gt;')],parse(<<-END)
+    assert_equal [SuperPre.new('<foo />')],parse(<<-END)
 >||
 <foo />
 ||<
@@ -84,7 +84,7 @@ END
   end
 
   def test_spre_format
-    assert_equal [SuperPre.new('&lt;foo /&gt;')],parse(<<-END)
+    assert_equal [SuperPre.new('<foo />')],parse(<<-END)
 >|xml|
 <foo />
 ||<
