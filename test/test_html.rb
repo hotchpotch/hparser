@@ -37,6 +37,7 @@ class HtmlTest < Test::Unit::TestCase
   def test_pre
     assert_html '<pre>foobar</pre>',Pre.new([Text.new('foobar')])
     assert_html '<pre>foobar</pre>',SuperPre.new('foobar')
+    assert_html "<pre>aaa\n bbb\nccc</pre>",SuperPre.new("aaa\n bbb\nccc")
   end
 
   def test_quote
