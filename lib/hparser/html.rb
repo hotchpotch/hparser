@@ -91,11 +91,17 @@ module HParser
 
     class SuperPre
       include Html
-      attr_accessor :class_format_prefix
+      @@class_format_prefix = nil
+      def self.class_format_prefix
+        @@class_format_prefix
+      end
+      def self.class_format_prefix=(prefix)
+        @@class_format_prefix = prefix
+      end
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
         if format
-          %(<#{html_tag} class="#{@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
+          %(<#{html_tag} class="#{@@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
         else
           %(<#{html_tag}>#{content}</#{html_tag}>)
         end

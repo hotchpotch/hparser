@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{hparser}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.specification_version = 2 if s.respond_to? :specification_version=
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--title", "hparser documentation", "--charset", "utf-8", "--opname", "index.html", "--line-numbers", "--main", "README", "--inline-source", "--exclude", "^(examples|extras)/"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{hparser}
-  s.rubygems_version = %q{1.1.1}
+  s.rubygems_version = %q{1.1.2}
   s.summary = %q{}
   s.test_files = ["test/test_inline_html.rb", "test/test_dl.rb", "test/test_id.rb", "test/test_text.rb", "test/test_block.rb", "test/test_hatena.rb", "test/test_head.rb", "test/test_table.rb", "test/test_pair.rb", "test/test_url.rb", "test/test_inline.rb", "test/test_html.rb", "test/test_helper.rb", "test/test_p.rb"]
 end
