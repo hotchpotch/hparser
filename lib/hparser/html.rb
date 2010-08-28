@@ -38,6 +38,17 @@ module HParser
       end
       %(<#{html_tag}>#{content}</#{html_tag}>)
     end
+
+    ESCAPE_TABLE = {
+      '&' => '&amp;',
+      '"' => '&quot;',
+      '<' => '&lt;',
+      '>' => '&gt;'
+    }
+
+    def escape(str)
+      str.gsub(/[&"<>]/n) {|c| ESCAPE_TABLE[c] }
+    end
   end
 
   module Block
@@ -80,9 +91,14 @@ module HParser
 
     class SuperPre
       include Html
+      attr_accessor :class_format_prefix
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
-        %(<#{html_tag}>#{content}</#{html_tag}>)
+        if format
+          %(<#{html_tag} class="#{@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
+        else
+          %(<#{html_tag}>#{content}</#{html_tag}>)
+        end
       end
       def html_tag() 'pre' end
       alias_method :html_content,:content

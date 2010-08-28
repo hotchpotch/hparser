@@ -84,11 +84,13 @@ END
   end
 
   def test_spre_format
-    assert_equal [SuperPre.new('<foo />')],parse(<<-END)
+    parsed = parse(<<-END)
 >|xml|
 <foo />
 ||<
 END
+    assert_equal [SuperPre.new('<foo />')], parsed
+    assert_equal 'xml', parsed.first.format
   end
 
   def test_list

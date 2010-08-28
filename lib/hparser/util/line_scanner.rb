@@ -5,12 +5,13 @@ module HParser
   module Util
     # StringScanner like class
     class LineScanner
-      attr_reader :matched
+      attr_reader :matched, :matched_pattern
       def initialize(lines)
         @lines = lines
       end
       
       def scan(exp)
+        @matched_pattern = nil
         if match?(exp) then
           @matched = @lines.shift
         else
@@ -29,7 +30,7 @@ module HParser
       def match?(exp)
         if @lines == [] then
           false
-        elsif exp.class == Regexp and @lines[0] =~ exp then
+        elsif exp.class == Regexp and (@matched_pattern = @lines[0].match(exp)) then
           true
         elsif @lines[0] == exp
           true

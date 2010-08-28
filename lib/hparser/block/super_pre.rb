@@ -11,7 +11,7 @@ module HParser
         content = format = nil
         if scanner.scan(/^>\|([A-Za-z0-9]*)\|\s*?$/)
           content = ''
-          format = $1
+          format = scanner.matched_pattern[1]
           until scanner.scan(/^\|\|<\s*?$/) do
             str = scanner.scan(/.*/)
             break if !str
