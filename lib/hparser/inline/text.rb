@@ -14,7 +14,7 @@ module HParser
       end
 
       def self.parse(scanner)
-        if scanner.scan(%r!<a.*</a>!) or scanner.scan(/./m)
+        if scanner.scan(%r!<a.*</a>!) or scanner.scan(%r!<img\s.*>!) or scanner.scan(/./m)
           Text.new(scanner.matched)
         end
       end
