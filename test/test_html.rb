@@ -19,6 +19,14 @@ class HtmlTest < Test::Unit::TestCase
     assert_equal parser.parse(''), []
   end
 
+  def test_imgtag
+    parser = HParser::Inline::Parser.new
+    tag = "<img src='http://example.com/' />"
+    assert_equal parser.parse(tag), [Text.new(tag)]
+    tag = '<img src="http://example.com/" />'
+    assert_equal parser.parse(tag), [Text.new(tag)]
+  end
+
   def test_head
     assert_equal Head.head_level, 1
     assert_html '<h1>foo</h1>',Head.new(1,[Text.new('foo')])

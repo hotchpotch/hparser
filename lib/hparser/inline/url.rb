@@ -9,7 +9,7 @@ module HParser
       include Collectable
       attr_reader :url
       def self.parse(scanner)
-        if scanner.scan(%r!https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\(\)\!]+!) then
+        if scanner.scan(%r![^'"]https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\(\)\!]+!) then
           Url.new scanner.matched
         end
       end
