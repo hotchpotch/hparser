@@ -29,7 +29,12 @@ module HParser
         if scanner.scan(/^#{from_q}\s*?$/)
           content = ''
           until scanner.scan(/^#{to_q}\s*?$/) do
-            content += "\n"+ scanner.scan(/.*/)
+            matched = scanner.scan(/.*/)
+            if matched
+              content += "\n"+ matched 
+            else
+              break
+            end
           end
           return content.strip
         end

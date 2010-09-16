@@ -39,6 +39,12 @@ bbb
 
   def test_quote
     assert_pair ">>","<<",Quote
+
+    assert_equal [Quote.new([Text.new("a\n>>")])],parse(<<-END)
+>>
+a
+>>
+END
   end
 
   def test_pre
