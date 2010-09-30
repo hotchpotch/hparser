@@ -19,12 +19,17 @@ class HtmlTest < Test::Unit::TestCase
     assert_equal parser.parse(''), []
   end
 
-  def test_imgtag
+  def test_not_autolink_tag
     parser = HParser::Inline::Parser.new
-    tag = "<img src='http://example.com/' />"
-    assert_equal parser.parse(tag), [Text.new(tag)]
-    tag = '<img src="http://example.com/" />'
-    assert_equal parser.parse(tag), [Text.new(tag)]
+    tags = [
+      "<img src='http://example.com/' />",
+      '<img src="http://example.com/" />',
+      '<iframe src="http://example.com/"></iframe>',
+      '<a href="http://example.com/"></a>'
+    ]
+    tags.each do |tag|
+      assert_equal parser.parse(tag), [Text.new(tag)]
+    end
   end
 
   def test_head
