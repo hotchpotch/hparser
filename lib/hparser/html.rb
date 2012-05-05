@@ -202,8 +202,9 @@ module HParser
     end
 
     class Url
+      include Html
       def to_html
-        %(<a href="#{self.url}">#{self.url}</a>)
+        %(<a href="#{self.url}">#{self.title}</a>)
       end
     end
 

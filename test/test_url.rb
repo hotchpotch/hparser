@@ -32,4 +32,10 @@ class UrlTest < Test::Unit::TestCase
   def test_https
     assert_equal [Url.new("https://example.com")],parse("https://example.com")
   end
+
+  def test_title
+    assert_equal "b", Url.new("a", "b").title
+    assert_equal [Url.new("http://example.com", "TITLE")],parse("[http://example.com:title=TITLE]")
+    assert_equal [Url.new("http://example.com", "(undefined)")],parse("[http://example.com:title]")
+  end
 end
