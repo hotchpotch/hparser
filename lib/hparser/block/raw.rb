@@ -11,7 +11,12 @@ module HParser
         if scanner.scan(/^></)
           content = scanner.matched
           until content.match(/><$/)
-            content << "\n" << scanner.scan(/.*/)
+            str = scanner.scan(/.*/)
+            if str.nil? then
+              content << "<"
+              break
+            end
+            content << "\n" << str
           end
           self.new inlines.parse(content[1..-2])
         end

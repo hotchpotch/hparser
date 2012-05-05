@@ -119,6 +119,14 @@ END
     END
   end
 
+  def test_raw_without_end_lt
+    assert_equal [RAW.new([ Text.new("<ins>") ]), P.new([ Text.new("foo") ]), RAW.new([ Text.new("</ins>") ])], parse(<<-END.unindent)
+    ><ins><
+    foo
+    ></ins>
+    END
+  end
+
   def test_p
     assert_equal [P.new([ Text.new(" foo") ])], parse(<<END)
  foo
