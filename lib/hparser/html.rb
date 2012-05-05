@@ -98,9 +98,19 @@ module HParser
       def self.class_format_prefix=(prefix)
         @@class_format_prefix = prefix
       end
+      @@use_pygments = false
+      def self.use_pygments
+        @@use_pygments
+      end
+      def self.use_pygments=(use_or_not)
+        @@use_pygments = use_or_not
+      end
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
-        if format
+        if !format.nil? && @@use_pygments
+          require 'albino'
+          Albino.new(html_content, format).colorize
+        elsif format
           %(<#{html_tag} class="#{@@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
         else
           %(<#{html_tag}>#{content}</#{html_tag}>)
