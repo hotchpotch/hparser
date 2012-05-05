@@ -23,4 +23,9 @@ class DlTest < Test::Unit::TestCase
 :bar:bar is ...
                   END
   end
+
+  def test_fake_dl
+    assert_equal [],parse(":this is not dl")
+    assert_equal [],parse(":this is not dl too:")
+  end
 end
