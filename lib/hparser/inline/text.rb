@@ -10,6 +10,7 @@ module HParser
       attr_reader :text
 
       def self.<=>(o)
+        # This parser should be last.
         1
       end
 

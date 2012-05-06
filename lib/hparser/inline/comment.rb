@@ -9,10 +9,6 @@ module HParser
 
       attr_reader :content
 
-      def self.<=>(o)
-        1
-      end
-
       def self.parse(scanner)
         if scanner.scan(/<!--.+-->/m)
           self.new(scanner.matched[4..-4])
