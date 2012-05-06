@@ -16,14 +16,22 @@ class UrlTest < Test::Unit::TestCase
     url = Url.new("http://example.com")
     assert_equal "http://example.com", url.url
     assert_equal "http://example.com", url.title
+    assert_equal false, url.bookmark
 
     url = Url.new("http://example.com", "TITLE")
     assert_equal "http://example.com", url.url
     assert_equal "TITLE", url.title
+    assert_equal false, url.bookmark
 
     url = Url.new("http://example.com", "")
     assert_equal "http://example.com", url.url
     assert_equal "(undefined)", url.title
+    assert_equal false, url.bookmark
+
+    url = Url.new("http://example.com", "a", true)
+    assert_equal "http://example.com", url.url
+    assert_equal "a", url.title
+    assert_equal true, url.bookmark
   end
 
   def test_http
@@ -52,5 +60,7 @@ class UrlTest < Test::Unit::TestCase
     assert_equal [Url.new("http://example.com", "TITLE")],parse("[http://example.com:title=TITLE]")
     assert_equal [Url.new("http://example.com", "")],parse("[http://example.com:title]")
     assert_equal [Url.new("http://example.com")],parse("[http://example.com]")
+    assert_equal [Url.new("http://example.com", "", true)],parse("[http://example.com:title:bookmark]")
+    assert_equal [Url.new("http://example.com", "TITLE", true)],parse("[http://example.com:title=TITLE:bookmark]")
   end
 end

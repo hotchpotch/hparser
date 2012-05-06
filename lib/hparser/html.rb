@@ -231,7 +231,13 @@ module HParser
     class Url
       include Html
       def to_html
-        %(<a href="#{self.url}">#{self.title}</a>)
+        if @bookmark then
+            require 'uri'
+            enc_url = URI.encode(url)
+            bookmark = %( <a href="http://b.hatena.ne.jp/entry/#{enc_url}" class="http-bookmark">) + 
+                       %(<img src="http://b.hatena.ne.jp/entry/image/#{enc_url}" alt="" class="http-bookmark"></a>)
+        end
+        %(<a href="#{self.url}">#{self.title}</a>#{bookmark})
       end
     end
 
