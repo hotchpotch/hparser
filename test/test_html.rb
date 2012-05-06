@@ -55,7 +55,7 @@ class HtmlTest < Test::Unit::TestCase
 
   def test_p
     assert_html '<p>foobar</p>',P.new([Text.new('foobar')])
-    assert_html '<p><br /></p>',Empty.new
+    assert_html '<br />',Empty.new
   end
 
   def test_pre

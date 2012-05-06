@@ -79,7 +79,7 @@ module HParser
     end
 
     class Empty
-      def to_html() '<p><br /></p>' end
+      def to_html() '<br />' end
     end
 
     class Pre

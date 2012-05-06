@@ -19,6 +19,7 @@ class QuoteTest < Test::Unit::TestCase
                   parse(<<-END.unindent)
     >>
     a
+    
     b
     <<
     END

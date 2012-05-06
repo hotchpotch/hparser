@@ -9,18 +9,19 @@ module HParser
       include Collectable
       include HParser::Inline
       include HParser::Util
-      @start_pattern = /^>(.*)>\s*$/
-      @end_pattern = /^<<\s*$/
-      @blocks = Or.new(*HParser::Parser.default_parser)
+      @@start_pattern = /^>(.*)>\s*$/
+      @@end_pattern = /^<<\s*$/
+      @@blocks = Concat.new(Or.new(*HParser::Parser.default_parser),
+                            Skip.new(Empty))
 
       def self.parse(scanner,inlines)
-        if scanner.scan(@start_pattern)
+        if scanner.scan(@@start_pattern)
           url = Url.parse(StringScanner.new "[#{scanner.matched_pattern[1]}]")
 
           items = []
-          until scanner.scan(@end_pattern)
+          until scanner.scan(@@end_pattern)
             break unless scanner.match? /.*/
-            items << @blocks.parse(scanner,inlines)
+            items << @@blocks.parse(scanner,inlines)[0]
           end
           self.new(items, url)
         end
