@@ -60,7 +60,11 @@ class HtmlTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_html '<blockquote><p>foobar</p></blockquote>',Quote.new(P.new([Text.new('foobar')]))
+    assert_html '<blockquote><p>foobar</p></blockquote>',Quote.new([P.new([Text.new('foobar')])])
+    assert_html '<blockquote><p>foobar</p><cite><a href="http://example.com">http://example.com</a></cite></blockquote>',
+                Quote.new([P.new([Text.new('foobar')])], Url.new('http://example.com'))
+    assert_html '<blockquote><p>foobar</p><cite><a href="http://example.com">TITLE</a></cite></blockquote>',
+                Quote.new([P.new([Text.new('foobar')])], Url.new('http://example.com', 'TITLE'))
   end
 
   def test_table

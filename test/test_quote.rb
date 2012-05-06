@@ -15,7 +15,7 @@ class QuoteTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_equal [Quote.new(P.new([Text.new('a')]),P.new([Text.new('b')]))],
+    assert_equal [Quote.new([P.new([Text.new('a')]),P.new([Text.new('b')])])],
                   parse(<<-END.unindent)
     >>
     a
@@ -25,7 +25,7 @@ class QuoteTest < Test::Unit::TestCase
   end
 
   def test_quote_list
-    assert_equal [Quote.new(Ul.new(Li.new([Text.new('a')])))],
+    assert_equal [Quote.new([Ul.new(Li.new([Text.new('a')]))])],
                   parse(<<-END.unindent)
     >>
     -a
@@ -34,9 +34,9 @@ class QuoteTest < Test::Unit::TestCase
   end
 
   def test_quote_nesting
-    assert_equal [Quote.new(P.new([Text.new('a')]),
-                            Quote.new(P.new([Text.new('b')]))
-                           )
+    assert_equal [Quote.new([P.new([Text.new('a')]),
+                             Quote.new([P.new([Text.new('b')])])
+                            ])
                  ],
                   parse(<<-END.unindent)
     >>
@@ -48,8 +48,18 @@ class QuoteTest < Test::Unit::TestCase
     END
   end
 
+  def test_quote_with_url
+    assert_equal [Quote.new([P.new([Text.new('a')])], 
+                            Url.new('http://example.com'))],
+                  parse(<<-END.unindent)
+    >http://example.com>
+    a
+    <<
+    END
+  end
+
   def test_quote_unmatch
-    assert_equal [Quote.new(P.new([Text.new('a')]))],
+    assert_equal [Quote.new([P.new([Text.new('a')])])],
                   parse(<<-END.unindent)
     >>
     a

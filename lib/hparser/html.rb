@@ -122,10 +122,25 @@ module HParser
 
     class Quote
       include Html
+
+      class QuoteUrl
+        include Html
+        def initialize(url)
+          @url = url
+        end
+        private
+        def html_tag() 'cite' end
+        def html_content() @url.to_html end
+      end
+
       private
       def html_tag() 'blockquote' end
       def html_content
-        @items
+        if @url
+          @items + [QuoteUrl.new(@url)]
+        else
+          @items
+        end
       end
     end
 

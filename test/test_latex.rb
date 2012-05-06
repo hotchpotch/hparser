@@ -41,7 +41,7 @@ class LatexTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_latex "\\begin{quotation}\nfoobar\n\n\n\\end{quotation}\n",Quote.new(P.new([Text.new('foobar')]))
+    assert_latex "\\begin{quotation}\nfoobar\n\n\n\\end{quotation}\n",Quote.new([P.new([Text.new('foobar')])])
   end
 
   def test_table

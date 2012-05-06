@@ -7,12 +7,18 @@ module HParser
   module Inline
     class Url
       include Collectable
+      @@url_re = %r!https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\!]+!
+      @@bracket_url_with_title_re = %r!\[(#{@@url_re}):title(?:=([^:]*))?\]!
+      @@bracket_url_re = %r!\[(#{@@url_re})\]!
+
       attr_reader :url, :title
       def self.parse(scanner)
-        if scanner.scan(%r!https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\!]+!) then
+        if scanner.scan(@@url_re) then
           Url.new scanner.matched, scanner.matched
-        elsif scanner.scan(%r!\[(https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\!]+):title(?:=([^:]*))?\]!) then
+        elsif scanner.scan(@@bracket_url_with_title_re) then
           Url.new scanner[1], scanner[2] || ""
+        elsif scanner.scan(@@bracket_url_re)
+          Url.new scanner[1]
         end
       end
       
@@ -22,7 +28,7 @@ module HParser
       end
       
       def ==(o)
-        self.class and o.class and @url == o.url and @title == o.title
+        o and self.class and o.class and @url == o.url and @title == o.title
       end
     end
   end

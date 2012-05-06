@@ -12,6 +12,20 @@ class UrlTest < Test::Unit::TestCase
     @parser.parse str
   end
 
+  def test_new
+    url = Url.new("http://example.com")
+    assert_equal "http://example.com", url.url
+    assert_equal "http://example.com", url.title
+
+    url = Url.new("http://example.com", "TITLE")
+    assert_equal "http://example.com", url.url
+    assert_equal "TITLE", url.title
+
+    url = Url.new("http://example.com", "")
+    assert_equal "http://example.com", url.url
+    assert_equal "(undefined)", url.title
+  end
+
   def test_http
     assert_equal [Url.new("http://example.com")],parse("http://example.com")
   end
@@ -33,9 +47,10 @@ class UrlTest < Test::Unit::TestCase
     assert_equal [Url.new("https://example.com")],parse("https://example.com")
   end
 
-  def test_title
+  def test_bracket
     assert_equal "b", Url.new("a", "b").title
     assert_equal [Url.new("http://example.com", "TITLE")],parse("[http://example.com:title=TITLE]")
-    assert_equal [Url.new("http://example.com", "(undefined)")],parse("[http://example.com:title]")
+    assert_equal [Url.new("http://example.com", "")],parse("[http://example.com:title]")
+    assert_equal [Url.new("http://example.com")],parse("[http://example.com]")
   end
 end
