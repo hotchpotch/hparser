@@ -57,7 +57,11 @@ module HParser
       include Indent
     end
     class Quote
+      include Text
       include Indent
+      def text_content
+        @items
+      end
     end
 
     class Table

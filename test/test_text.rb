@@ -32,7 +32,7 @@ class TextTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_text '  foobar',Quote.new([Text.new('foobar')])
+    assert_text "  foobar\n  bar",Quote.new(P.new([Text.new("foobar\nbar")]))
   end
 
   def test_dl

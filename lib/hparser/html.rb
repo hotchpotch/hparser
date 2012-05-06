@@ -124,7 +124,9 @@ module HParser
       include Html
       private
       def html_tag() 'blockquote' end
-      alias_method :html_content,:content
+      def html_content
+        @items
+      end
     end
 
     class Table

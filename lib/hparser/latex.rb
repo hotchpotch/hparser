@@ -104,7 +104,9 @@ module HParser
         %Q[\\begin{quotation}\n#{content}\n\\end{quotation}\n]
       end
 
-      alias_method :latex_content,:content
+      def latex_content
+        @items
+      end
     end
 
     class Table

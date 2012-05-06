@@ -32,7 +32,7 @@ class HatenaTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_hatena ">>\nfoobar\n<<",Quote.new([Text.new('foobar')])
+    assert_hatena ">>\nfoobar\n\n<<",Quote.new(P.new([Text.new('foobar')]))
   end
 
   def test_table
