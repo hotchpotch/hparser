@@ -105,17 +105,33 @@ module HParser
       def self.use_pygments=(use_or_not)
         @@use_pygments = use_or_not
       end
+
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
         if format != "" && @@use_pygments
           require 'albino'
-          Albino.new(html_content, format).colorize
+
+          # quick hack language name converter (super pre -> pygments)
+          lang = format
+          case format
+          when "cs"
+            lang = "csharp"
+          when "lisp"
+            lang = "cl"
+          when "patch"
+            lang = "diff"
+          when "vb"
+            lang = "vbnet"
+          end
+
+          Albino.new(html_content, lang).colorize
         elsif format
           %(<#{html_tag} class="#{@@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
         else
           %(<#{html_tag}>#{content}</#{html_tag}>)
         end
       end
+
       def html_tag() 'pre' end
       alias_method :html_content,:content
     end
