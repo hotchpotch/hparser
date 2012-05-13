@@ -107,7 +107,7 @@ module HParser
       end
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
-        if !format.nil? && @@use_pygments
+        if format != "" && @@use_pygments
           require 'albino'
           Albino.new(html_content, format).colorize
         elsif format
