@@ -263,6 +263,12 @@ module HParser
       end
     end
 
+    class Fotolife
+      def to_html
+        %(<a href="#{self.url}"><img src="#{self.image_url}"></a>)
+      end
+    end
+
     class Comment
       def to_html
         ""

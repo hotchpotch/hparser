@@ -41,4 +41,10 @@ class HtmlInlineTest < Test::Unit::TestCase
                 '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/%23a" alt="" class="http-bookmark"></a>',
                 '[http://example.com/#a:title=TITLE:bookmark]'
   end
+
+  def test_fotolife
+    assert_html '<a href="http://f.hatena.ne.jp/nitoyon/20100718010346">' + 
+                '<img src="http://f.hatena.ne.jp/images/fotolife/n/nitoyon/20100718/20100718010346.jpg"></a>',
+                '[f:id:nitoyon:20100718010346j:image]'
+  end
 end
