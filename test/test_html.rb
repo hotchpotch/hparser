@@ -19,30 +19,6 @@ class HtmlTest < Test::Unit::TestCase
     assert_equal parser.parse(''), []
   end
 
-  def test_not_autolink_tag
-    parser = HParser::Inline::Parser.new
-    tags = [
-      "<img src='http://example.com/' />",
-      '<img src="http://example.com/" />',
-      '<iframe src="http://example.com/"></iframe>',
-      '<a href="http://example.com/"></a>'
-    ]
-    tags.each do |tag|
-      assert_equal parser.parse(tag), [Text.new(tag)]
-    end
-  end
-
-  def test_url
-    assert_html '<a href="http://example.com/">http://example.com/</a>',
-                Url.new('http://example.com/')
-    assert_html '<a href="http://example.com/">TITLE</a>',
-                Url.new('http://example.com/', 'TITLE')
-    assert_html '<a href="http://example.com/#a">TITLE</a> ' + 
-                '<a href="http://b.hatena.ne.jp/entry/http://example.com/%23a" class="http-bookmark">' + 
-                '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/%23a" alt="" class="http-bookmark"></a>',
-                Url.new('http://example.com/#a', 'TITLE', true)
-  end
-
   def test_head
     assert_equal Head.head_level, 1
     assert_html '<h1>foo</h1>',Head.new(1,[Text.new('foo')])
