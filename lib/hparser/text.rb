@@ -121,6 +121,20 @@ module HParser
         [HParser::Inline::Text.new(' '),self.content].flatten
       end
     end
+
+    class RAW
+      def to_text
+        @content.map {|i| i.to_text }.join
+      end
+    end
+
+    class FootnoteList
+      def to_text
+        @footnotes.map {|f| 
+          %((*#{f.index}) #{f.text})
+        }.join("\n")
+      end
+    end
   end
 
   module Inline
@@ -135,6 +149,24 @@ module HParser
     class HatenaId
       def to_text
         "id:#{self.name}"
+      end
+    end
+
+    class Fotolife
+      def to_text
+        alias_method :to_text,:url
+      end
+    end
+
+    class Footnote
+      def to_text
+        "(*#{self.index})"
+      end
+    end
+
+    class Comment
+      def to_text
+        ""
       end
     end
   end

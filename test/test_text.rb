@@ -62,6 +62,16 @@ END
                                        Li.new([Text.new('bbb')]))
   end
 
+  def test_footnote_list
+    assert_text "(*1) text1\n(*2) text2",
+                FootnoteList.new([Footnote.new(1, 'text1'),
+                                  Footnote.new(2, 'text2')])
+  end
+
+  def test_footnote
+    assert_text "(*1)",Footnote.new(1, 'text1')
+  end
+
   def th str
     Th.new [Text.new(str)]
   end

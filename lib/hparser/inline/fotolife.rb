@@ -24,7 +24,7 @@ module HParser
         "http://f.hatena.ne.jp/images/fotolife/#{id[0]}/#{id}/#{@date}/#{@date}#{@time}.#{@ext}"
       end
 
-      def self.parse(scanner)
+      def self.parse(scanner, context=nil)
         if scanner.scan(/\[f:id:([^:]+):(\d{8})(\d{6})(p|g|j):image(:[^\]]+)?\]/) then
           Fotolife.new scanner[1], scanner[2], scanner[3], 
                        scanner[4] == 'j' ? 'jpg' : scanner[4] == 'p' ? 'png' : 'gif'

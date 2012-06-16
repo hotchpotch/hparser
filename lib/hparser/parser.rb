@@ -4,6 +4,7 @@
 
 require 'hparser/util/parser'
 require 'hparser/inline/parser'
+require 'hparser/inline/footnote'
 require 'hparser/block/collectable'
 require 'hparser/util/line_scanner'
 
@@ -42,9 +43,14 @@ module HParser
     #
     # Return array of block element.
     def parse str
-      res = (@blocks.parse(LineScanner.new(str.split(/\r\n|\r|\n/)),@inlines) || []).map{|x|
+      context = Context.new
+      res = (@blocks.parse(LineScanner.new(str.split(/\r\n|\r|\n/)),context,@inlines) || []).map{|x|
         x[0]
       }
+      if context.footnotes.length > 0
+        res << FootnoteList.new(context.footnotes)
+      end
+      res
     end
 
     # Retutrn array of all usable parser.
@@ -64,6 +70,16 @@ module HParser
       parser.sort{|a,b|
         a <=> b or -(b <=> a).to_i
       }
+    end
+  end
+
+  # Parse context.
+  #
+  # Context instance is passed to all parsers.
+  class Context
+    attr_reader :footnotes
+    def initialize(footnotes=[])
+      @footnotes = footnotes
     end
   end
 end

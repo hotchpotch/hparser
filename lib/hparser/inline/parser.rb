@@ -13,9 +13,9 @@ module HParser
         @document =  Many1.new(Or.new(*parsers))
       end
 
-      def parse str
+      def parse str, context=nil
         scanner = StringScanner.new str
-        e = @document.parse(scanner) || [ HParser::Inline::Text.new("") ]
+        e = @document.parse(scanner, context) || [ HParser::Inline::Text.new("") ]
         join_text e
       end
 

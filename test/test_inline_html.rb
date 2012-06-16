@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'hparser/inline/all'
+require 'hparser/parser'
 require 'hparser/html'
 
 class HtmlInlineTest < Test::Unit::TestCase
@@ -11,7 +12,8 @@ class HtmlInlineTest < Test::Unit::TestCase
   def assert_html expect,str
     expect.class == String and (expect = [expect])
 
-    assert_equal expect,@parser.parse(str).map{|x| x.to_html}
+    context = HParser::Context.new
+    assert_equal expect,@parser.parse(str, context).map{|x| x.to_html}
   end
 
   def assert_same str
@@ -46,5 +48,10 @@ class HtmlInlineTest < Test::Unit::TestCase
     assert_html '<a href="http://f.hatena.ne.jp/nitoyon/20100718010346">' + 
                 '<img src="http://f.hatena.ne.jp/images/fotolife/n/nitoyon/20100718/20100718010346.jpg"></a>',
                 '[f:id:nitoyon:20100718010346j:image]'
+  end
+
+  def test_footnote
+    assert_html '<span class="footnote"><a href="#f1" title="text" name="fn1">*1</a></span>',
+                '((<a href="#">text</a>))'
   end
 end

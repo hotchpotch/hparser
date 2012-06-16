@@ -14,14 +14,14 @@ module HParser
       @@blocks = Concat.new(Or.new(*HParser::Parser.default_parser),
                             Skip.new(Empty))
 
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         if scanner.scan(@@start_pattern)
           url = Url.parse(StringScanner.new "[#{scanner.matched_pattern[1]}]")
 
           items = []
           until scanner.scan(@@end_pattern)
             break unless scanner.match? /.*/
-            items << @@blocks.parse(scanner,inlines)[0]
+            items << @@blocks.parse(scanner,context,inlines)[0]
           end
           self.new(items, url)
         end

@@ -213,6 +213,12 @@ module HParser
         @content.map {|i| i.to_latex }.join
       end
     end
+
+    class FoonoteList
+      def to_latex
+        ""
+      end
+    end
   end
 
   module Inline
@@ -231,6 +237,18 @@ module HParser
     class HatenaId
       def to_latex
         "\\href{http://d.hatena.ne.jp/#{self.name}/}{id:#{self.name}}"
+      end
+    end
+
+    class Fotolife
+      def to_latex
+        alias_method :to_latex,:url
+      end
+    end
+
+    class Footnote
+      def to_latex
+        %(\\footnote{#{self.text}})
       end
     end
 

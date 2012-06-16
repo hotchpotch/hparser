@@ -12,7 +12,7 @@ module HParser
       @@bracket_url_re = %r!\[(#{@@url_re})\]!
 
       attr_reader :url, :title, :bookmark
-      def self.parse(scanner)
+      def self.parse(scanner, context=nil)
         if scanner.scan(@@url_re) then
           Url.new scanner.matched, scanner.matched
         elsif scanner.scan(@@bracket_url_with_title_re) then

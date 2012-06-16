@@ -235,6 +235,18 @@ module HParser
         @content.map {|i| i.to_html }.join
       end
     end
+
+    class FootnoteList
+      def to_html
+        %(<div class="footnote">#{self.html_content}</div>)
+      end
+
+      def html_content
+        @footnotes.map {|f| 
+          %(<p class="footnote"><a href="#fn#{f.index}" name="f#{f.index}">*#{f.index}</a>: #{f.text}</p>)
+        }.join
+      end
+    end
   end
 
   module Inline
@@ -266,6 +278,13 @@ module HParser
     class Fotolife
       def to_html
         %(<a href="#{self.url}"><img src="#{self.image_url}"></a>)
+      end
+    end
+
+    class Footnote
+      def to_html
+        text = self.text.gsub(/<.*?>/, '')
+        %(<span class="footnote"><a href="#f#{self.index}" title="#{text}" name="fn#{self.index}">*#{self.index}</a></span>)
       end
     end
 

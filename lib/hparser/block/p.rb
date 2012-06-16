@@ -18,7 +18,7 @@ module HParser
     # third line is parsed with HParser::Block::Empty.
     class Empty
       include Collectable
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         if scanner.scan('') then
           Empty.new
         end
@@ -36,10 +36,10 @@ module HParser
     class P
       include Collectable
       attr_reader :content
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         if scanner.scan(/./) then
           matched = scanner.matched
-          P.new inlines.parse(matched)
+          P.new inlines.parse(matched, context)
         end
       end
       

@@ -43,10 +43,10 @@ module HParser
       # make parser by begin/end-ing string
       def self.spliter(from,to)
         module_eval <<-"END"
-        def self.parse(scanner,inlines)
+        def self.parse(scanner,context,inlines)
           content = get(scanner,"#{from}","#{to}")
           if content then
-            self.new inlines.parse(content)
+            self.new inlines.parse(content, context)
           else
             nil
           end

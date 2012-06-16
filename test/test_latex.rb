@@ -82,6 +82,10 @@ EOB
     assert_latex expect,Dl.new(first,second)
   end
 
+  def test_footnote
+    assert_latex "\\footnote{text1}", Footnote.new(1, "text1")
+  end
+
   def th str
     Th.new [Text.new(str)]
   end

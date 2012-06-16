@@ -21,12 +21,12 @@ module HParser
         end
       end
 
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         items = []
         while scanner.scan(/\A:[^:]+:./)
           i = scanner.matched.index(':',1)
-          title = inlines.parse scanner.matched[1...i]
-          description = inlines.parse scanner.matched[i+1..-1]
+          title = inlines.parse scanner.matched[1...i], context
+          description = inlines.parse scanner.matched[i+1..-1], context
           items.push Item.new(title,description)
         end
         items == [] ? nil : self.new(*items)

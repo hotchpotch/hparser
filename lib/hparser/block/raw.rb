@@ -7,7 +7,7 @@ module HParser
     class RAW < Pair
       include Collectable
 
-      def self.parse(scanner, inlines)
+      def self.parse(scanner, context, inlines)
         if scanner.scan(/^></)
           content = scanner.matched
           until content.match(/><$/)
@@ -18,7 +18,7 @@ module HParser
             end
             content << "\n" << str
           end
-          self.new inlines.parse(content[1..-2])
+          self.new inlines.parse(content[1..-2], context)
         end
       end
 

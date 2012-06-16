@@ -74,6 +74,14 @@ class HtmlTest < Test::Unit::TestCase
     assert_html expect,Dl.new(first,second)
   end
 
+  def test_footnote_list
+    expect = '<div class="footnote">' + 
+             '<p class="footnote"><a href="#fn1" name="f1">*1</a>: text1</p>' + 
+             '<p class="footnote"><a href="#fn2" name="f2">*2</a>: text2</p>' + 
+             '</div>'
+    assert_html expect, FootnoteList.new([Footnote.new(1, 'text1'), Footnote.new(2, 'text2')])
+  end
+
   def th str
     Th.new [Text.new(str)]
   end

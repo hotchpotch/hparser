@@ -14,7 +14,7 @@ module HParser
         1
       end
 
-      def self.parse(scanner)
+      def self.parse(scanner, context=nil)
         if scanner.scan(%r!<(a|iframe|script).*</\1>!) or scanner.scan(%r!<img\s.*>!) or scanner.scan(/./m)
           Text.new(scanner.matched)
         end

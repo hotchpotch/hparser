@@ -9,7 +9,7 @@ module HParser
 
       attr_reader :content
 
-      def self.parse(scanner)
+      def self.parse(scanner, context=nil)
         if scanner.scan(/<!--.+-->/m)
           self.new(scanner.matched[4..-4])
         end
