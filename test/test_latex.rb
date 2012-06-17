@@ -86,6 +86,10 @@ EOB
     assert_latex "\\footnote{text1}", Footnote.new(1, "text1")
   end
 
+  def test_tex
+    assert_latex "$e^{i\pi} = -1$", Tex.new("e^{i\pi} = -1")
+  end
+
   def th str
     Th.new [Text.new(str)]
   end

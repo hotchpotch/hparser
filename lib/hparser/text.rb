@@ -153,9 +153,11 @@ module HParser
     end
 
     class Fotolife
-      def to_text
-        alias_method :to_text,:url
-      end
+      alias_method :to_text,:url
+    end
+
+    class Tex
+      alias_method :to_text,:text
     end
 
     class Footnote

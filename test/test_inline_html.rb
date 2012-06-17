@@ -50,6 +50,12 @@ class HtmlInlineTest < Test::Unit::TestCase
                 '[f:id:nitoyon:20100718010346j:image]'
   end
 
+  def test_tex
+    assert_html '<img src="http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=e%5E%7Bi%5Cpi%7D+%3D+-1"' +
+                ' class="tex" alt="e^{i\pi} = -1">',
+                '[tex:e^{i\pi} = -1]'
+  end
+
   def test_footnote
     assert_html '<span class="footnote"><a href="#f1" title="text" name="fn1">*1</a></span>',
                 '((<a href="#">text</a>))'

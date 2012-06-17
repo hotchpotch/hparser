@@ -246,6 +246,12 @@ module HParser
       end
     end
 
+    class Tex
+      def to_latex
+        %($#{self.text}$)
+      end
+    end
+
     class Footnote
       def to_latex
         %(\\footnote{#{self.text}})

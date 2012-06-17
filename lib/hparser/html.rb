@@ -288,6 +288,14 @@ module HParser
       end
     end
 
+    class Tex
+      def to_html
+        require "cgi"
+        url = "http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=" + CGI.escape(self.text)
+        %(<img src="#{url}" class="tex" alt="#{CGI.escapeHTML(self.text)}">)
+      end
+    end
+
     class Comment
       def to_html
         ""
