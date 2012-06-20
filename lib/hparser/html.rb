@@ -82,6 +82,16 @@ module HParser
       def to_html() '<br />' end
     end
 
+    class SeeMore
+      def to_html()
+        if self.is_super
+          '<a name="seeall"></a>'
+        else
+          '<a name="seemore"></a>'
+        end
+      end
+    end
+
     class Pre
       include Html
       private

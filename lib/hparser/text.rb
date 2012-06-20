@@ -39,6 +39,10 @@ module HParser
       end
     end
 
+    class SeeMore
+      def to_text() "" end
+    end
+
     module Indent
       include Text
       def text_content

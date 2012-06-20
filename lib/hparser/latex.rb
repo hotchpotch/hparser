@@ -74,6 +74,10 @@ module HParser
       def to_latex() "\n\n" end
     end
 
+    class SeeMore
+      def to_latex() '' end
+    end
+
     class Pre
       include Latex
 

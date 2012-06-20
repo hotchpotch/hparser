@@ -32,6 +32,8 @@ class HtmlTest < Test::Unit::TestCase
   def test_p
     assert_html '<p>foobar</p>',P.new([Text.new('foobar')])
     assert_html '<br />',Empty.new
+    assert_html '<a name="seemore"></a>',SeeMore.new(false)
+    assert_html '<a name="seeall"></a>',SeeMore.new(true)
   end
 
   def test_pre
