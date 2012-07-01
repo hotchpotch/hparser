@@ -119,8 +119,6 @@ module HParser
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
         if format != "" && @@use_pygments
-          require 'albino'
-
           # quick hack language name converter (super pre -> pygments)
           lang = format
           case format
@@ -134,7 +132,14 @@ module HParser
             lang = "vbnet"
           end
 
-          Albino.new(html_content, lang).colorize
+          begin
+            require 'pygments'
+            Pygments.highlight(html_content,
+                               :lexer => lang, :options => {:encoding => 'utf-8'})
+          rescue LoadError
+            require 'albino'
+            Albino.new(html_content, lang).colorize
+          end
         elsif format
           %(<#{html_tag} class="#{@@class_format_prefix}#{escape(format)}">#{content}</#{html_tag}>)
         else
