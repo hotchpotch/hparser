@@ -17,6 +17,8 @@ class InlineTest < Test::Unit::TestCase
   def test_text
     assert_equal [Text.new("foo is bar")],parse("foo is bar")
     assert_equal [Text.new("foo\nbar")],parse("foo\nbar")
+    assert_not_equal [Text.new('<a href="#"></a>id:secondlife</a>')],
+                     parse('<a href="#"></a>id:secondlife</a>')
   end
 
   def test_id
