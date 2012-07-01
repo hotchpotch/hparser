@@ -62,5 +62,10 @@ class UrlTest < Test::Unit::TestCase
     assert_equal [Url.new("http://example.com")],parse("[http://example.com]")
     assert_equal [Url.new("http://example.com", "", true)],parse("[http://example.com:title:bookmark]")
     assert_equal [Url.new("http://example.com", "TITLE", true)],parse("[http://example.com:title=TITLE:bookmark]")
+    assert_equal [Url.new("http://example.com", "a:b", true)],parse("[http://example.com:title=a:b:bookmark]")
+    assert_equal [Url.new("http://example.com", "a"),
+                  Text.new("b:bookmark]")],
+                 parse("[http://example.com:title=a]b:bookmark]")
+    assert_not_equal [Url.new("http://example.com", "a\n")],parse("[http://example.com:title=a\n]")
   end
 end

@@ -8,7 +8,7 @@ module HParser
     class Url
       include Collectable
       @@url_re = %r!https?://[A-Za-z0-9~\/._\?\&=\-%#\+:;,\@\'\$\*\!]+!
-      @@bracket_url_with_title_re = %r!\[(#{@@url_re}):title(?:=([^:]*))?(:bookmark)?\]!
+      @@bracket_url_with_title_re = %r!\[(#{@@url_re}):title(?:=(.*?))?(:bookmark)?\]!
       @@bracket_url_re = %r!\[(#{@@url_re})\]!
 
       attr_reader :url, :title, :bookmark
