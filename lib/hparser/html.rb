@@ -51,6 +51,23 @@ module HParser
     end
   end
 
+  module ListContainerHtml
+    def to_html
+      f = false
+      content = html_content.map{|x|
+        if x.class == Block::ListItem
+          s = (f ? "</li>" : "") + %(<li>#{x.to_html})
+          f = true
+          s
+        else
+          x.to_html
+        end
+      }.join
+      content += "</li>" if f
+      %(<#{html_tag}>#{content}</#{html_tag}>)
+    end
+  end
+
   module Block
     class Head
       include Html
@@ -218,7 +235,7 @@ module HParser
     end
 
     class UnorderList
-      include Html
+      include ListContainerHtml
       private
       def html_tag
         'ul'
@@ -227,7 +244,7 @@ module HParser
     end
 
     class OrderList
-      include Html
+      include ListContainerHtml
       private
       def html_tag
         'ol'
@@ -237,12 +254,13 @@ module HParser
 
 
     class ListItem
-      include Html
-      private
-      def html_tag
-        'li'
+      def to_html
+        if content.class == Array then
+          content.map{|x| x.to_html}.join
+        else
+          content
+        end
       end
-      alias_method :html_content,:content
     end
 
     class RAW

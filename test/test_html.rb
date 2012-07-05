@@ -65,6 +65,10 @@ class HtmlTest < Test::Unit::TestCase
   def test_list
     assert_html '<ul><li>aaa</li><li>bbb</li></ul>',Ul.new(Li.new([Text.new('aaa')]),Li.new([Text.new('bbb')]))
     assert_html '<ol><li>aaa</li><li>bbb</li></ol>',Ol.new(Li.new([Text.new('aaa')]),Li.new([Text.new('bbb')]))
+    assert_html '<ol><li>aaa<ul><li>bbb</li></ul></li></ol>',Ol.new(Li.new([Text.new('aaa')]),
+                                                                    Ul.new(Li.new([Text.new('bbb')])))
+    assert_html '<ul><li>aaa<ol><li>bbb</li></ol></li></ul>',Ul.new(Li.new([Text.new('aaa')]),
+                                                                    Ol.new(Li.new([Text.new('bbb')])))
     assert_html '<ol><ul><li>aaa</li></ul><li>bbb</li></ol>',Ol.new(Ul.new(Li.new([Text.new('aaa')])),
                                                                     Li.new([Text.new('bbb')]))
   end
