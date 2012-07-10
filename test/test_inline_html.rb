@@ -31,6 +31,10 @@ class HtmlInlineTest < Test::Unit::TestCase
 
   def test_id
     assert_html '<a href="http://d.hatena.ne.jp/mzp/">id:mzp</a>','id:mzp'
+    assert_html '<a href="http://d.hatena.ne.jp/mzp/" class="hatena-id-icon">' +
+                '<img src="http://www.st-hatena.com/users/mz/mzp/profile_s.gif" ' +
+                'width="16" height="16" alt="id:mzp" class="hatena-id-icon">id:mzp</a>',
+                'id:mzp:detail'
   end
 
   def test_url

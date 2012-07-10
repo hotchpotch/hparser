@@ -24,6 +24,7 @@ class InlineTest < Test::Unit::TestCase
   def test_id
     assert_equal [Text.new("id:_ql")],parse("id:_ql")
     assert_equal [HatenaId.new("secondlife")],parse("id:secondlife")
+    assert_equal [HatenaId.new("secondlife", true)],parse("id:secondlife:detail")
   end
 
   def test_comment

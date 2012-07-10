@@ -304,7 +304,13 @@ module HParser
 
     class HatenaId
       def to_html
-        %(<a href="http://d.hatena.ne.jp/#{self.name}/">id:#{self.name}</a>)
+        if self.is_detail
+          %(<a href="http://d.hatena.ne.jp/#{self.name}/" class="hatena-id-icon">) +
+          %(<img src="http://www.st-hatena.com/users/#{self.name[0..1]}/#{self.name}/profile_s.gif") +
+          %( width="16" height="16" alt="id:#{self.name}" class="hatena-id-icon">id:#{self.name}</a>)
+        else
+          %(<a href="http://d.hatena.ne.jp/#{self.name}/">id:#{self.name}</a>)
+        end
       end
     end
 
