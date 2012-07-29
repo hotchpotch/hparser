@@ -61,9 +61,9 @@ END
   end
 
   def test_spre
-    assert_equal [SuperPre.new('a')],parse(<<-END)
+    assert_equal [SuperPre.new(' a ')],parse(<<-END)
 >||
-a
+ a 
 ||<
 END
     assert_equal [SuperPre.new('a')],parse(<<-END), 'with space'

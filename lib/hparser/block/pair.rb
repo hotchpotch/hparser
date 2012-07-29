@@ -27,16 +27,16 @@ module HParser
         from_q = Regexp.quote from
         to_q = Regexp.quote to
         if scanner.scan(/^#{from_q}\s*?$/)
-          content = ''
+          lines = []
           until scanner.scan(/^#{to_q}\s*?$/) do
             matched = scanner.scan(/.*/)
             if matched
-              content += "\n"+ matched 
+              lines << matched
             else
               break
             end
           end
-          return content.strip
+          return lines.join("\n")
         end
       end
 

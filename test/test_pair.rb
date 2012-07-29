@@ -40,6 +40,12 @@ bbb
   def test_pre
     assert_pair ">|","|<",Pre
 
+    assert_equal [Pre.new([Text.new(" a ")])],parse(<<-END)
+>|
+ a 
+|<
+END
+
     assert_equal [Pre.new([Text.new("a\n>|")])],parse(<<-END)
 >|
 a
