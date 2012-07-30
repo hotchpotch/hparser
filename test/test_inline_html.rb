@@ -42,6 +42,8 @@ class HtmlInlineTest < Test::Unit::TestCase
                 'http://mzp.sakura.ne.jp'
     assert_html '<a href="http://example.com/">TITLE</a>',
                 '[http://example.com/:title=TITLE]'
+    assert_html '<a href="http://example.com/">A&amp;B</a>',
+                '[http://example.com/:title=A&B]'
     assert_html '<a href="http://example.com/#a">TITLE</a> ' + 
                 '<a href="http://b.hatena.ne.jp/entry/http://example.com/%23a" class="http-bookmark">' + 
                 '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/%23a" alt="" class="http-bookmark"></a>',
