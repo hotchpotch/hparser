@@ -10,11 +10,12 @@ module HParser
       attr_reader :text
 
       def self.<=>(o)
+        # This parser should be last.
         1
       end
 
-      def self.parse(scanner)
-        if scanner.scan(%r!<(a|iframe).*</\1>!) or scanner.scan(%r!<img\s.*>!) or scanner.scan(/./m)
+      def self.parse(scanner, context=nil)
+        if scanner.scan(%r!<(a|iframe|script).*?</\1>!) or scanner.scan(%r!<img\s.*?>!) or scanner.scan(/./m)
           Text.new(scanner.matched)
         end
       end

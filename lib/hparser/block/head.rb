@@ -16,7 +16,7 @@ module HParser
     #  *** level3
     class Head
       include Collectable
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         if scanner.scan(/\A\*/) then
           level = 0
           scanner.matched.each_byte{|c|
@@ -26,7 +26,7 @@ module HParser
               break
             end
           }
-          Head.new level,inlines.parse(scanner.matched[level..-1].strip)
+          Head.new level,inlines.parse(scanner.matched[level..-1].strip, context)
         end
       end
       

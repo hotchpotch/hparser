@@ -10,7 +10,7 @@ module HParser
   module Block
     include HParser::Util
     def self.make_list_parser(level,mark,&proc)
-      ProcParser.new{|scanner,inlines|
+      ProcParser.new{|scanner,context,inlines|
         if level == 3 then
           parser = Many1.new(Li.make_parser(level,mark))
         else
@@ -18,7 +18,7 @@ module HParser
                                     OrderList.make_parser(level+1),
                                     Li.make_parser(level,mark)))
         end
-        list = parser.parse(scanner,inlines)
+        list = parser.parse(scanner,context,inlines)
         
         if list then
           proc.call list
@@ -30,8 +30,8 @@ module HParser
     # Maybe rewrite in near future.
     class UnorderList
       include Collectable
-      def self.parse(scanner,inlines)
-        Ul.make_parser(1).parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
+        Ul.make_parser(1).parse(scanner,context,inlines)
       end
       
       def self.make_parser(level)
@@ -52,8 +52,8 @@ module HParser
     # Maybe rewrite in near future.    
     class OrderList
       include Collectable
-      def self.parse(scanner,inlines)
-        Ol.make_parser(1).parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
+        Ol.make_parser(1).parse(scanner,context,inlines)
       end
       
       def self.make_parser(level)
@@ -75,9 +75,9 @@ module HParser
     class ListItem
       def self.make_parser(level,mark)
         include HParser::Util
-        ProcParser.new{|scanner,inlines|
+        ProcParser.new{|scanner,context,inlines|
           if scanner.scan(/\A#{Regexp.quote mark*level}.*/) then
-            ListItem.new inlines.parse(scanner.matched[level..-1].strip)
+            ListItem.new inlines.parse(scanner.matched[level..-1].strip, context)
           end
         }
       end

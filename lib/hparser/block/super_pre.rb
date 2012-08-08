@@ -6,18 +6,18 @@ module HParser
     class SuperPre < Pair
       include Collectable
 
-      def self.parse scanner,inlines
+      def self.parse scanner,context,inlines
 
         content = format = nil
         if scanner.scan(/^>\|([A-Za-z0-9]*)\|\s*?$/)
-          content = ''
+          lines = []
           format = scanner.matched_pattern[1]
           until scanner.scan(/^\|\|<\s*?$/) do
             str = scanner.scan(/.*/)
             break if !str
-            content += "\n"+ str
+            lines << str
           end
-          content.strip!
+          content = lines.join("\n")
         end
 
         if content then

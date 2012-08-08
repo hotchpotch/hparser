@@ -52,6 +52,7 @@ bbb
   def test_multi_line2
     assert_equal [p(" aaa"), p(" bbb"), p(" ccc")], parse(<<-END)
  aaa
+
  bbb
  ccc
     END

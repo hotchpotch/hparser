@@ -19,19 +19,6 @@ class HtmlTest < Test::Unit::TestCase
     assert_equal parser.parse(''), []
   end
 
-  def test_not_autolink_tag
-    parser = HParser::Inline::Parser.new
-    tags = [
-      "<img src='http://example.com/' />",
-      '<img src="http://example.com/" />',
-      '<iframe src="http://example.com/"></iframe>',
-      '<a href="http://example.com/"></a>'
-    ]
-    tags.each do |tag|
-      assert_equal parser.parse(tag), [Text.new(tag)]
-    end
-  end
-
   def test_head
     assert_equal Head.head_level, 1
     assert_html '<h1>foo</h1>',Head.new(1,[Text.new('foo')])
@@ -44,7 +31,9 @@ class HtmlTest < Test::Unit::TestCase
 
   def test_p
     assert_html '<p>foobar</p>',P.new([Text.new('foobar')])
-    assert_html '<p><br /></p>',Empty.new
+    assert_html '<br />',Empty.new
+    assert_html '<a name="seemore"></a>',SeeMore.new(false)
+    assert_html '<a name="seeall"></a>',SeeMore.new(true)
   end
 
   def test_pre
@@ -60,7 +49,11 @@ class HtmlTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_html '<blockquote>foobar</blockquote>',Quote.new([Text.new('foobar')])
+    assert_html '<blockquote><p>foobar</p></blockquote>',Quote.new([P.new([Text.new('foobar')])])
+    assert_html '<blockquote><p>foobar</p><cite><a href="http://example.com">http://example.com</a></cite></blockquote>',
+                Quote.new([P.new([Text.new('foobar')])], Url.new('http://example.com'))
+    assert_html '<blockquote><p>foobar</p><cite><a href="http://example.com">TITLE</a></cite></blockquote>',
+                Quote.new([P.new([Text.new('foobar')])], Url.new('http://example.com', 'TITLE'))
   end
 
   def test_table
@@ -72,6 +65,10 @@ class HtmlTest < Test::Unit::TestCase
   def test_list
     assert_html '<ul><li>aaa</li><li>bbb</li></ul>',Ul.new(Li.new([Text.new('aaa')]),Li.new([Text.new('bbb')]))
     assert_html '<ol><li>aaa</li><li>bbb</li></ol>',Ol.new(Li.new([Text.new('aaa')]),Li.new([Text.new('bbb')]))
+    assert_html '<ol><li>aaa<ul><li>bbb</li></ul></li></ol>',Ol.new(Li.new([Text.new('aaa')]),
+                                                                    Ul.new(Li.new([Text.new('bbb')])))
+    assert_html '<ul><li>aaa<ol><li>bbb</li></ol></li></ul>',Ul.new(Li.new([Text.new('aaa')]),
+                                                                    Ol.new(Li.new([Text.new('bbb')])))
     assert_html '<ol><ul><li>aaa</li></ul><li>bbb</li></ol>',Ol.new(Ul.new(Li.new([Text.new('aaa')])),
                                                                     Li.new([Text.new('bbb')]))
   end
@@ -81,6 +78,14 @@ class HtmlTest < Test::Unit::TestCase
     first = Dl::Item.new([Text.new('foo')],[Text.new('foo is ...')])
     second = Dl::Item.new([Text.new('bar')],[Text.new('bar is ...')])
     assert_html expect,Dl.new(first,second)
+  end
+
+  def test_footnote_list
+    expect = '<div class="footnote">' + 
+             '<p class="footnote"><a href="#fn1" name="f1">*1</a>: text1</p>' + 
+             '<p class="footnote"><a href="#fn2" name="f2">*2</a>: text2</p>' + 
+             '</div>'
+    assert_html expect, FootnoteList.new([Footnote.new(1, 'text1'), Footnote.new(2, 'text2')])
   end
 
   def th str

@@ -9,14 +9,14 @@ module HParser
     class Table
       attr_reader :rows
       include Collectable
-      def self.parse(scanner,inlines)
+      def self.parse(scanner,context,inlines)
         rows = []
         while scanner.scan(/\A\|/)
           rows.push scanner.matched[1..-1].split('|').select{|l| l[0]}.map{|label|
             if label[0].chr == '*' then
-              Th.new inlines.parse(label[1..-1].strip)
+              Th.new inlines.parse(label[1..-1].strip, context)
             else
-              Td.new inlines.parse(label.strip)
+              Td.new inlines.parse(label.strip, context)
             end
           }
         end

@@ -32,7 +32,7 @@ class TextTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_text '  foobar',Quote.new([Text.new('foobar')])
+    assert_text "  foobar\n  bar",Quote.new([P.new([Text.new("foobar\nbar")])])
   end
 
   def test_dl
@@ -60,6 +60,16 @@ END
                                            Li.new([Text.new('bbb')]))
     assert_text "-- aaa\n- bbb",Ul.new(Ul.new(Li.new([Text.new('aaa')])),
                                        Li.new([Text.new('bbb')]))
+  end
+
+  def test_footnote_list
+    assert_text "(*1) text1\n(*2) text2",
+                FootnoteList.new([Footnote.new(1, 'text1'),
+                                  Footnote.new(2, 'text2')])
+  end
+
+  def test_footnote
+    assert_text "(*1)",Footnote.new(1, 'text1')
   end
 
   def th str

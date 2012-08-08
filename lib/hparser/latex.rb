@@ -74,6 +74,10 @@ module HParser
       def to_latex() "\n\n" end
     end
 
+    class SeeMore
+      def to_latex() '' end
+    end
+
     class Pre
       include Latex
 
@@ -104,7 +108,9 @@ module HParser
         %Q[\\begin{quotation}\n#{content}\n\\end{quotation}\n]
       end
 
-      alias_method :latex_content,:content
+      def latex_content
+        @items
+      end
     end
 
     class Table
@@ -211,6 +217,12 @@ module HParser
         @content.map {|i| i.to_latex }.join
       end
     end
+
+    class FoonoteList
+      def to_latex
+        ""
+      end
+    end
   end
 
   module Inline
@@ -229,6 +241,24 @@ module HParser
     class HatenaId
       def to_latex
         "\\href{http://d.hatena.ne.jp/#{self.name}/}{id:#{self.name}}"
+      end
+    end
+
+    class Fotolife
+      def to_latex
+        alias_method :to_latex,:url
+      end
+    end
+
+    class Tex
+      def to_latex
+        %($#{self.text}$)
+      end
+    end
+
+    class Footnote
+      def to_latex
+        %(\\footnote{#{self.text}})
       end
     end
 
