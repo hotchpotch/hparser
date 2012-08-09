@@ -41,7 +41,7 @@ class LatexTest < Test::Unit::TestCase
   end
 
   def test_quote
-    assert_latex "\\begin{quotation}\nfoobar\n\\end{quotation}\n",Quote.new([Text.new('foobar')])
+    assert_latex "\\begin{quotation}\nfoobar\n\n\n\\end{quotation}\n",Quote.new([P.new([Text.new('foobar')])])
   end
 
   def test_table
@@ -80,6 +80,14 @@ EOB
     first = Dl::Item.new([Text.new('foo')],[Text.new('foo is ...')])
     second = Dl::Item.new([Text.new('bar')],[Text.new('bar is ...')])
     assert_latex expect,Dl.new(first,second)
+  end
+
+  def test_footnote
+    assert_latex "\\footnote{text1}", Footnote.new(1, "text1")
+  end
+
+  def test_tex
+    assert_latex "$e^{i\pi} = -1$", Tex.new("e^{i\pi} = -1")
   end
 
   def th str

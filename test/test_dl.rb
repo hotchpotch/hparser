@@ -23,4 +23,16 @@ class DlTest < Test::Unit::TestCase
 :bar:bar is ...
                   END
   end
+
+  def test_dl2
+    first = Dl::Item.new([Text.new('<a href="http://example.com/">a</a>')],
+                         [Text.new('b')])
+    assert_equal [Dl.new(first)],
+                 parse(':<a href="http://example.com/">a</a>:b')
+  end
+
+  def test_fake_dl
+    assert_equal [],parse(":this is not dl")
+    assert_equal [],parse(":this is not dl too:")
+  end
 end

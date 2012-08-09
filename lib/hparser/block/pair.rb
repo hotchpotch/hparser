@@ -27,26 +27,26 @@ module HParser
         from_q = Regexp.quote from
         to_q = Regexp.quote to
         if scanner.scan(/^#{from_q}\s*?$/)
-          content = ''
+          lines = []
           until scanner.scan(/^#{to_q}\s*?$/) do
             matched = scanner.scan(/.*/)
             if matched
-              content += "\n"+ matched 
+              lines << matched
             else
               break
             end
           end
-          return content.strip
+          return lines.join("\n")
         end
       end
 
       # make parser by begin/end-ing string
       def self.spliter(from,to)
         module_eval <<-"END"
-        def self.parse(scanner,inlines)
+        def self.parse(scanner,context,inlines)
           content = get(scanner,"#{from}","#{to}")
           if content then
-            self.new inlines.parse(content)
+            self.new inlines.parse(content, context)
           else
             nil
           end

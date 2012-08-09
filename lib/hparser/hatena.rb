@@ -51,7 +51,9 @@ module HParser
 
     class Quote
       include Hatena
-      alias_method :hatena_content,:content
+      def hatena_content
+        @items
+      end
       def hatena_filter c
         ">>\n"+c+"\n<<"
       end

@@ -17,11 +17,14 @@ class InlineTest < Test::Unit::TestCase
   def test_text
     assert_equal [Text.new("foo is bar")],parse("foo is bar")
     assert_equal [Text.new("foo\nbar")],parse("foo\nbar")
+    assert_not_equal [Text.new('<a href="#"></a>id:secondlife</a>')],
+                     parse('<a href="#"></a>id:secondlife</a>')
   end
 
   def test_id
     assert_equal [Text.new("id:_ql")],parse("id:_ql")
     assert_equal [HatenaId.new("secondlife")],parse("id:secondlife")
+    assert_equal [HatenaId.new("secondlife", true)],parse("id:secondlife:detail")
   end
 
   def test_comment

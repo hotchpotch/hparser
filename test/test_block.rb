@@ -61,9 +61,9 @@ END
   end
 
   def test_spre
-    assert_equal [SuperPre.new('a')],parse(<<-END)
+    assert_equal [SuperPre.new(' a ')],parse(<<-END)
 >||
-a
+ a 
 ||<
 END
     assert_equal [SuperPre.new('a')],parse(<<-END), 'with space'
@@ -116,6 +116,14 @@ END
     ><ins><
     foo
     ></ins><
+    END
+  end
+
+  def test_raw_without_end_lt
+    assert_equal [RAW.new([ Text.new("<ins>") ]), P.new([ Text.new("foo") ]), RAW.new([ Text.new("</ins>") ])], parse(<<-END.unindent)
+    ><ins><
+    foo
+    ></ins>
     END
   end
 
