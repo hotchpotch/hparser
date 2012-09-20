@@ -21,7 +21,7 @@ module HParser
       end
 
       def image_url
-        "http://f.hatena.ne.jp/images/fotolife/#{id[0]}/#{id}/#{@date}/#{@date}#{@time}.#{@ext}"
+        "http://f.hatena.ne.jp/images/fotolife/#{id[0..0]}/#{id}/#{@date}/#{@date}#{@time}.#{@ext}"
       end
 
       def self.parse(scanner, context=nil)
