@@ -34,7 +34,7 @@ To parse hatena format,please use HParser::Parser.
 
 == Copyright
 
-Author:: HIROKI Mizuno(Original Author), Yuichi Tateno<hotchpotch@nospam@gmail.com>
+Author:: HIROKI Mizuno(Original Author), Yuichi Tateno<hotchpotch@nospam@gmail.com>, Nitoyon
 Copyright:: HIROKI Mizuno, Yuichi Tateno
 License:: Ruby's
 
