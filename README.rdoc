@@ -1,4 +1,4 @@
-=Hatena Format Parser
+= Hatena Format Parser
 
 == Description
 
