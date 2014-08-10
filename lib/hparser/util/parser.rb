@@ -78,6 +78,7 @@ module HParser
       def self.includes(mod)
         parser = []
         ObjectSpace.each_object(Class){|klass|
+          next if klass.name.nil? || !klass.name.start_with?('HParser::')
           if klass.include?(mod) then
             parser.push klass
           end
