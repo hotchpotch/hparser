@@ -58,18 +58,7 @@ module HParser
     # This method collect all classes/modules which include
     # HParser::Block::Collectable. And sorting those by <=>. 
     def self.default_parser
-      parser = []
-      ObjectSpace.each_object(Class){|klass|
-        if klass.include?(HParser::Block::Collectable) then
-          parser.push klass
-        end
-      }
-
-      # sorting parser.
-      # e.g. Parser P should be after any other parser.
-      parser.sort{|a,b|
-        a <=> b or -(b <=> a).to_i
-      }
+      AllParser.includes(HParser::Block::Collectable)
     end
   end
 

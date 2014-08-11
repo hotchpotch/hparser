@@ -20,15 +20,7 @@ module HParser
       end
 
       def self.default_parser
-        parser = []
-        ObjectSpace.each_object(Class){|klass|
-          if klass.include?(HParser::Inline::Collectable) then
-            parser.push klass
-          end
-        }
-        parser.sort{|a,b|
-          a <=> b or -(b <=> a).to_i
-        }
+        AllParser.includes(HParser::Inline::Collectable)
       end
 
       private
