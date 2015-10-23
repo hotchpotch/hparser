@@ -9,7 +9,7 @@ module HParser
       def self.parse scanner,context,inlines
 
         content = format = nil
-        if scanner.scan(/^>\|([A-Za-z0-9]*)\|\s*?$/)
+        if scanner.scan(/^>\|([A-Za-z0-9]+)?\|\s*?$/)
           lines = []
           format = scanner.matched_pattern[1]
           until scanner.scan(/^\|\|<\s*?$/) do
@@ -33,6 +33,10 @@ module HParser
 
       def self.<=>(o)
         -1
+      end
+
+      def ==(o)
+        self.class == o.class and self.content == o.content and self.format == o.format
       end
     end
   end

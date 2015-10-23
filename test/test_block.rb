@@ -89,8 +89,7 @@ END
 <foo />
 ||<
 END
-    assert_equal [SuperPre.new('<foo />')], parsed
-    assert_equal 'xml', parsed.first.format
+    assert_equal [SuperPre.new('<foo />', 'xml')], parsed
   end
 
   def test_list
