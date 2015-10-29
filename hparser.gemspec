@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_development_dependency "rake", ">= 0.9.2"
+  gem.add_development_dependency "test-unit", "1.2.3" # for ruby 1.8
   gem.add_development_dependency "pry"
 end
 
