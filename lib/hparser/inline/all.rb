@@ -1,1 +1,9 @@
-Dir[File.dirname(__FILE__)+'/*.rb'].each{|x| require x}
+require 'hparser/inline/collectable'
+require 'hparser/inline/comment'
+require 'hparser/inline/footnote'
+require 'hparser/inline/fotolife'
+require 'hparser/inline/hatena_id'
+require 'hparser/inline/parser'
+require 'hparser/inline/tex'
+require 'hparser/inline/text'
+require 'hparser/inline/url'

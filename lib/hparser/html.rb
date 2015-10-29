@@ -135,7 +135,7 @@ module HParser
 
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
-        if format != "" && @@use_pygments
+        if format && @@use_pygments
           # quick hack language name converter (super pre -> pygments)
           lang = format
           case format
