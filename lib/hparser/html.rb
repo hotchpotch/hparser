@@ -127,27 +127,30 @@ module HParser
       def self.use_pygments=(use_or_not)
         @@use_pygments = use_or_not
       end
+      @@format_map = {
+        "cs" => "csharp",
+        "lisp" => "cl",
+        "patch" => "diff",
+        "vb" => "vbnet",
+      }
+      def self.format_map
+        @@format_map
+      end
+      def self.format_map=(map)
+        @@format_map = map
+      end
+
+      def mapped_format
+        @@format_map.fetch(format, format)
+      end
 
       def to_html
         content = html_content.gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
         if format && @@use_pygments
-          # quick hack language name converter (super pre -> pygments)
-          lang = format
-          case format
-          when "cs"
-            lang = "csharp"
-          when "lisp"
-            lang = "cl"
-          when "patch"
-            lang = "diff"
-          when "vb"
-            lang = "vbnet"
-          end
-
           begin
             require 'pygments'
             Pygments.highlight(html_content,
-                               :lexer => lang, :options => {:encoding => 'utf-8'})
+                               :lexer => mapped_format, :options => {:encoding => 'utf-8'})
           rescue LoadError
             require 'albino'
             Albino.new(html_content, lang).colorize

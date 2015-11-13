@@ -48,6 +48,17 @@ class HtmlTest < Test::Unit::TestCase
     assert_html '<pre class="brush: ruby">foobar</pre>', spre
   end
 
+  def test_super_pre_mapped_format
+    default_map = SuperPre.format_map
+    assert_equal 'csharp', SuperPre.new('a', 'cs').mapped_format
+
+    SuperPre.format_map = {'ruby' => 'ruby!!'}
+    assert_equal 'ruby!!', SuperPre.new('a', 'ruby').mapped_format
+    assert_equal 'perl', SuperPre.new('a', 'perl').mapped_format
+  ensure
+    SuperPre.format_map = default_map
+  end
+
   def test_quote
     assert_html '<blockquote><p>foobar</p></blockquote>',Quote.new([P.new([Text.new('foobar')])])
     assert_html '<blockquote><p>foobar</p><cite><a href="http://example.com">http://example.com</a></cite></blockquote>',
