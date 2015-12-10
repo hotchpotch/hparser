@@ -40,14 +40,16 @@ class HtmlInlineTest < Test::Unit::TestCase
   def test_url
     assert_html '<a href="http://mzp.sakura.ne.jp">http://mzp.sakura.ne.jp</a>',
                 'http://mzp.sakura.ne.jp'
+    assert_html '<a href="http://example.com/?a=b&amp;c=d">http://example.com/?a=b&amp;c=d</a>',
+                'http://example.com/?a=b&c=d'
     assert_html '<a href="http://example.com/">TITLE</a>',
                 '[http://example.com/:title=TITLE]'
     assert_html '<a href="http://example.com/">A&amp;B</a>',
                 '[http://example.com/:title=A&B]'
-    assert_html '<a href="http://example.com/#a">TITLE</a> ' + 
-                '<a href="http://b.hatena.ne.jp/entry/http://example.com/%23a" class="http-bookmark">' + 
-                '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/%23a" alt="" class="http-bookmark"></a>',
-                '[http://example.com/#a:title=TITLE:bookmark]'
+    assert_html '<a href="http://example.com/?a=b&amp;c=d#a">TITLE</a> ' + 
+                '<a href="http://b.hatena.ne.jp/entry/http://example.com/?a=b&amp;c=d%23a" class="http-bookmark">' + 
+                '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/?a=b&amp;c=d%23a" alt="" class="http-bookmark"></a>',
+                '[http://example.com/?a=b&c=d#a:title=TITLE:bookmark]'
   end
 
   def test_fotolife

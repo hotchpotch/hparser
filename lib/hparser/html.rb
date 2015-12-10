@@ -289,11 +289,11 @@ module HParser
       def to_html
         if @bookmark then
             require 'uri'
-            enc_url = URI.encode(url)
+            enc_url = escape(URI.encode(url))
             bookmark = %( <a href="http://b.hatena.ne.jp/entry/#{enc_url}" class="http-bookmark">) + 
                        %(<img src="http://b.hatena.ne.jp/entry/image/#{enc_url}" alt="" class="http-bookmark"></a>)
         end
-        %(<a href="#{self.url}">#{escape(self.title)}</a>#{bookmark})
+        %(<a href="#{escape(self.url)}">#{escape(self.title)}</a>#{bookmark})
       end
     end
 
