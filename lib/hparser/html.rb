@@ -279,8 +279,13 @@ module HParser
 
   module Inline
     class Text
+      include Html
       def to_html
-        self.text
+        # escape < > & " except for HTML tag and HTML entity
+        tag_regex = /(<\/?[a-z]+(?:\s[^>]+)?\/?>|&#\d+;|&#x[0-9a-z]+;|&[a-z]+;)/i
+        self.text.split(tag_regex).map {|e|
+          e.match(tag_regex) ? e : escape(e)
+        }.join
       end
     end
 

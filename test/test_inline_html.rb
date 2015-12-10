@@ -27,6 +27,10 @@ class HtmlInlineTest < Test::Unit::TestCase
     assert_same '<img src="http://example.com/" />'
     assert_same '<iframe src="http://example.com/"></iframe>'
     assert_same '<a href="http://example.com/"></a>'
+    assert_same '<br/>'
+    assert_same 'a &amp; &#39;b&#x3a;'
+    assert_html 'a &lt; &quot;b&quot; <img src="http://example.com/"/> c &lt;&gt; d',
+                'a < "b" <img src="http://example.com/"/> c <> d'
   end
 
   def test_id
