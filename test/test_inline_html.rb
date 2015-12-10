@@ -57,7 +57,7 @@ class HtmlInlineTest < Test::Unit::TestCase
   end
 
   def test_tex
-    assert_html '<img src="http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=e%5E%7Bi%5Cpi%7D+%3D+-1"' +
+    assert_html '<img src="http://chart.apis.google.com/chart?cht=tx&amp;chf=bg,s,00000000&amp;chl=e%5E%7Bi%5Cpi%7D+%3D+-1"' +
                 ' class="tex" alt="e^{i\pi} = -1">',
                 '[tex:e^{i\pi} = -1]'
   end

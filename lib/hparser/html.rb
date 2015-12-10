@@ -326,7 +326,7 @@ module HParser
       include Html
       def to_html
         url = "http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=" + CGI.escape(self.text)
-        %(<img src="#{url}" class="tex" alt="#{escape(self.text)}">)
+        %(<img src="#{escape(url)}" class="tex" alt="#{escape(self.text)}">)
       end
     end
 
