@@ -4,6 +4,8 @@
 # This file define +to_html+. +to_html+ is convert hatena format to html.
 #
 
+require 'cgi'
+
 module HParser
   # This module provide +to_html+ method.
   # This method is intended to convert  hatena format to html format.
@@ -39,15 +41,8 @@ module HParser
       %(<#{html_tag}>#{content}</#{html_tag}>)
     end
 
-    ESCAPE_TABLE = {
-      '&' => '&amp;',
-      '"' => '&quot;',
-      '<' => '&lt;',
-      '>' => '&gt;'
-    }
-
     def escape(str)
-      str.gsub(/[&"<>]/n) {|c| ESCAPE_TABLE[c] }
+      CGI.escapeHTML(str)
     end
   end
 
@@ -284,22 +279,26 @@ module HParser
 
   module Inline
     class Text
+      include Html
       def to_html
-        self.text
+        # escape < > & " except for HTML tag and HTML entity
+        tag_regex = /(<\/?[a-z]+(?:\s[^>]+)?\/?>|&#\d+;|&#x[0-9a-z]+;|&[a-z]+;)/i
+        self.text.split(tag_regex).map {|e|
+          e.match(tag_regex) ? e : escape(e)
+        }.join
       end
     end
 
     class Url
       include Html
-      require "cgi"
       def to_html
         if @bookmark then
             require 'uri'
-            enc_url = URI.encode(url)
+            enc_url = escape(URI.encode(url))
             bookmark = %( <a href="http://b.hatena.ne.jp/entry/#{enc_url}" class="http-bookmark">) + 
                        %(<img src="http://b.hatena.ne.jp/entry/image/#{enc_url}" alt="" class="http-bookmark"></a>)
         end
-        %(<a href="#{self.url}">#{CGI.escapeHTML(self.title)}</a>#{bookmark})
+        %(<a href="#{escape(self.url)}">#{escape(self.title)}</a>#{bookmark})
       end
     end
 
@@ -329,10 +328,10 @@ module HParser
     end
 
     class Tex
+      include Html
       def to_html
-        require "cgi"
         url = "http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=" + CGI.escape(self.text)
-        %(<img src="#{url}" class="tex" alt="#{CGI.escapeHTML(self.text)}">)
+        %(<img src="#{escape(url)}" class="tex" alt="#{escape(self.text)}">)
       end
     end
 

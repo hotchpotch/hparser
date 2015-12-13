@@ -27,6 +27,10 @@ class HtmlInlineTest < Test::Unit::TestCase
     assert_same '<img src="http://example.com/" />'
     assert_same '<iframe src="http://example.com/"></iframe>'
     assert_same '<a href="http://example.com/"></a>'
+    assert_same '<br/>'
+    assert_same 'a &amp; &#39;b&#x3a;'
+    assert_html 'a &lt; &quot;b&quot; <img src="http://example.com/"/> c &lt;&gt; d',
+                'a < "b" <img src="http://example.com/"/> c <> d'
   end
 
   def test_id
@@ -40,14 +44,16 @@ class HtmlInlineTest < Test::Unit::TestCase
   def test_url
     assert_html '<a href="http://mzp.sakura.ne.jp">http://mzp.sakura.ne.jp</a>',
                 'http://mzp.sakura.ne.jp'
+    assert_html '<a href="http://example.com/?a=b&amp;c=d">http://example.com/?a=b&amp;c=d</a>',
+                'http://example.com/?a=b&c=d'
     assert_html '<a href="http://example.com/">TITLE</a>',
                 '[http://example.com/:title=TITLE]'
     assert_html '<a href="http://example.com/">A&amp;B</a>',
                 '[http://example.com/:title=A&B]'
-    assert_html '<a href="http://example.com/#a">TITLE</a> ' + 
-                '<a href="http://b.hatena.ne.jp/entry/http://example.com/%23a" class="http-bookmark">' + 
-                '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/%23a" alt="" class="http-bookmark"></a>',
-                '[http://example.com/#a:title=TITLE:bookmark]'
+    assert_html '<a href="http://example.com/?a=b&amp;c=d#a">TITLE</a> ' + 
+                '<a href="http://b.hatena.ne.jp/entry/http://example.com/?a=b&amp;c=d%23a" class="http-bookmark">' + 
+                '<img src="http://b.hatena.ne.jp/entry/image/http://example.com/?a=b&amp;c=d%23a" alt="" class="http-bookmark"></a>',
+                '[http://example.com/?a=b&c=d#a:title=TITLE:bookmark]'
   end
 
   def test_fotolife
@@ -57,7 +63,7 @@ class HtmlInlineTest < Test::Unit::TestCase
   end
 
   def test_tex
-    assert_html '<img src="http://chart.apis.google.com/chart?cht=tx&chf=bg,s,00000000&chl=e%5E%7Bi%5Cpi%7D+%3D+-1"' +
+    assert_html '<img src="http://chart.apis.google.com/chart?cht=tx&amp;chf=bg,s,00000000&amp;chl=e%5E%7Bi%5Cpi%7D+%3D+-1"' +
                 ' class="tex" alt="e^{i\pi} = -1">',
                 '[tex:e^{i\pi} = -1]'
   end
