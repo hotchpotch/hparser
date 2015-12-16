@@ -16,7 +16,7 @@ So,+hparser+ can be added new format,or removed unused format.
 
 === Gem Installation
 
- gem install hotchpotch-hparser
+ gem install hparser
 
 
 == Features/Problems
