@@ -207,7 +207,7 @@ module HParser
     class Text
       def to_md(opt={})
         self.text
-          .gsub(/<code>(.+?)<\/code>/i, '`\1`')
+          .gsub(/<code>([^`]+?)<\/code>/i, '`\1`')
           .gsub(/<em>(.+?)<\/em>/i, '*\1*')
           .gsub(/<strong>(.+?)<\/strong>/i, '**\1**')
       end

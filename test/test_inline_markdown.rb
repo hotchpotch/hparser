@@ -44,6 +44,7 @@ class MarkdownInlineTest < Test::Unit::TestCase
   def test_markdownify
     assert_md 'aa `b` cc `d`',
               'aa <code>b</code> cc <CODE>d</CODE>'
+    assert_md '<code>`</code>', '<code>`</code>'
     assert_md 'aa *b* cc *d*',
               'aa <em>b</em> cc <EM>d</EM>'
     assert_md 'aa **b** cc **d**',
