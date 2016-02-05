@@ -50,7 +50,7 @@ class MarkdownTest < Test::Unit::TestCase
                                                     P.new([Text.new('foobar')])])
     assert_md "> > foobar\n> \n> foobar\n",Quote.new([Quote.new([P.new([Text.new('foobar')])]),
                                                       P.new([Text.new('foobar')])])
-    assert_md "> foobar\n> \n> <cite><a href=\"http://example.com\">TITLE</a></cite>\n",
+    assert_md "> foobar\n> \n> <cite>[TITLE](http://example.com)</cite>\n",
               Quote.new([P.new([Text.new('foobar')])], Url.new('http://example.com', 'TITLE'))
   end
 

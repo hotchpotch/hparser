@@ -89,7 +89,7 @@ module HParser
 
       class QuoteUrl
         def to_md(opt={})
-          to_html
+          "<cite>" + @url.to_md(opt) + "</cite>"
         end
       end
 
